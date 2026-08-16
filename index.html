@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tolu Adedoja | Digital Accessibility Remediation Portfolio</title>
+
+    <meta
+        name="description"
+        content="Digital accessibility remediation portfolio showcasing accessible Word and PDF documents, remediation techniques, and accessibility testing."
+    >
+
+    <style>
+        /* =========================
+           GLOBAL STYLES
+        ========================== */
+
+        :root {
+            --navy: #0b1f33;
+            --blue: #1769aa;
+            --light-blue: #eaf4fb;
+            --accent: #2f80ed;
+            --text: #1f2933;
+            --muted: #5b6875;
+            --background: #f7f9fc;
+            --white: #ffffff;
+            --border: #d9e2ec;
+            --success: #176b45;
+            --shadow: 0 8px 24px rgba(11, 31, 51, 0.08);
+            --radius: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--background);
+        }
+
+        a {
+            color: var(--blue);
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 4px solid #ffbf47;
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        /* =========================
+           SKIP LINK
+        ========================== */
+
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            background: var(--white);
+            color: var(--navy);
+            padding: 14px 22px;
+            z-index: 1000;
+            border-radius: 0 0 8px 0;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .skip-link:focus {
+            left: 0;
+        }
+
+        /* =========================
+           VISUALLY HIDDEN (screen-reader only)
+        ========================== */
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        header {
+            background: var(--navy);
+            color: var(--white);
+            padding: 80px 20px 90px;
+        }
+
+        .hero {
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #a9d7ff;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: clamp(2.3rem, 6vw, 4.5rem);
+            line-height: 1.1;
+            max-width: 850px;
+            margin-bottom: 24px;
+        }
+
+        .hero-intro {
+            max-width: 760px;
+            font-size: 1.15rem;
+            color: #d9e8f5;
+        }
+
+        .hero-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 30px;
+        }
+
+        .hero-button {
+            display: inline-block;
+            padding: 11px 18px;
+            border-radius: 8px;
+            background: var(--white);
+            color: var(--navy);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .hero-button:hover {
+            background: #eaf4fb;
+        }
+
+        /* =========================
+           MAIN CONTENT
+        ========================== */
+
+        main {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 70px 20px;
+        }
+
+        section {
+            margin-bottom: 70px;
+        }
+
+        .section-heading {
+            margin-bottom: 28px;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            line-height: 1.2;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .section-description {
+            color: var(--muted);
+            max-width: 750px;
+        }
+
+        /* =========================
+           ABOUT
+        ========================== */
+
+        .about-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .about-card p + p {
+            margin-top: 16px;
+        }
+
+        /* =========================
+           DOCUMENT CARDS
+        ========================== */
+
+        .document-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .document-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .document-type {
+            display: inline-block;
+            align-self: flex-start;
+            background: var(--light-blue);
+            color: var(--blue);
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 5px 10px;
+            border-radius: 999px;
+            margin-bottom: 16px;
+        }
+
+        h3 {
+            font-size: 1.35rem;
+            line-height: 1.3;
+            color: var(--navy);
+            margin-bottom: 12px;
+        }
+
+        .document-description {
+            color: var(--muted);
+            margin-bottom: 22px;
+        }
+
+        .document-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .document-link {
+            display: inline-block;
+            padding: 9px 14px;
+            border-radius: 7px;
+            border: 1px solid var(--border);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.92rem;
+        }
+
+        .document-link.primary {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: var(--white);
+        }
+
+        .document-link:hover {
+            opacity: 0.88;
+        }
+
+        /* =========================
+           REMEDIATION DETAILS
+        ========================== */
+
+        .remediation-list {
+            margin: 0 0 24px 20px;
+            color: var(--muted);
+        }
+
+        .remediation-list li {
+            margin-bottom: 6px;
+        }
+
+        /* =========================
+           VIDEO SECTION
+        ========================== */
+
+        .video-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            box-shadow: var(--shadow);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            margin-top: 22px;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #dce4ec;
+        }
+
+        .video-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-placeholder {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+            color: var(--muted);
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            background: var(--navy);
+            color: #d9e8f5;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        footer p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 0.95rem;
+        }
+
+        /* =========================
+           RESPONSIVE DESIGN
+        ========================== */
+
+        @media (max-width: 600px) {
+            header {
+                padding: 60px 18px 65px;
+            }
+
+            main {
+                padding: 50px 18px;
+            }
+
+            .about-card,
+            .document-card,
+            .video-card {
+                padding: 22px;
+            }
+
+            .hero-intro {
+                font-size: 1.05rem;
+            }
+
+            .document-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* =========================
+           REDUCED MOTION
+        ========================== */
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Skip link: first focusable element on the page -->
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <header>
+        <div class="hero">
+
+            <span class="eyebrow">Digital Accessibility Portfolio</span>
+
+            <h1>
+                Document Accessibility Remediation
+            </h1>
+
+            <p class="hero-intro">
+                Hi, I'm Tolu Adedoja, an accessibility-focused information
+                professional with experience in digital accessibility,
+                accessibility testing, and document remediation. This portfolio
+                demonstrates my hands-on work remediating Microsoft Word and
+                PDF documents to improve their accessibility and usability.
+            </p>
+
+            <nav class="hero-links" aria-label="Page sections">
+                <a class="hero-button" href="#word-documents">
+                    Word Documents
+                </a>
+
+                <a class="hero-button" href="#pdf-documents">
+                    PDF Documents
+                </a>
+
+                <a class="hero-button" href="#videos">
+                    Remediation Videos
+                </a>
+            </nav>
+
+        </div>
+    </header>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main id="main-content">
+
+        <!-- ABOUT -->
+
+        <section id="about">
+
+            <div class="section-heading">
+                <h2>About This Portfolio</h2>
+
+                <p class="section-description">
+                    A practical demonstration of document accessibility
+                    remediation, including the original document, the
+                    remediated version, and video walkthroughs of the
+                    remediation process.
+                </p>
+            </div>
+
+            <div class="about-card">
+
+                <p>
+                    Accessible documents are an important part of creating
+                    inclusive digital experiences. In this portfolio, I
+                    demonstrate how I identify and address accessibility
+                    barriers in Microsoft Word and PDF documents.
+                </p>
+
+                <p>
+                    Each project includes the original document for comparison,
+                    the remediated document, and, where available, a video
+                    walkthrough showing the remediation process and the
+                    accessibility considerations behind the changes.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             WORD DOCUMENTS
+        ========================== -->
+
+        <section id="word-documents">
+
+            <div class="section-heading">
+                <h2>Microsoft Word Remediation</h2>
+
+                <p class="section-description">
+                    Word documents remediated with accessibility in mind,
+                    including document structure, headings, lists, tables,
+                    alternative text, links, reading order, and other
+                    accessibility features.
+                </p>
+            </div>
+
+
+            <div class="document-grid">
+
+                <!-- DOCUMENT 1 -->
+
+                <article class="document-card">
+
+                    <span class="document-type">
+                        Microsoft Word
+                    </span>
+
+                    <h3>
+                        General Chemistry I Syllabus
+                    </h3>
+
+                    <p class="document-description">
+                        Accessibility remediation of a college-level General
+                        Chemistry I syllabus.
+                    </p>
+
+                    <ul class="remediation-list">
+                        <li>Heading structure</li>
+                        <li>Lists and document structure</li>
+                        <li>Alternative text</li>
+                        <li>Accessible links</li>
+                    </ul>
+
+                    <div class="document-links">
+
+                        <a
+                            class="document-link"
+                            href="documents/word/original-general-chemistry-syllabus.docx"
+                            download
+                        >
+                            Original Document
+                            <span class="visually-hidden">(Word file, downloads)</span>
+                        </a>
+
+                        <a
+                            class="document-link primary"
+                            href="documents/word/remediated-general-chemistry-syllabus.docx"
+                            download
+                        >
+                            Remediated Document
+                            <span class="visually-hidden">(Word file, downloads)</span>
+                        </a>
+
+                    </div>
+
+                </article>
+
+                <!--
+                    TEMPLATE — duplicate this comment block into a live
+                    <article class="document-card"> when you add a new Word
+                    document. Kept as a comment so an unfilled placeholder
+                    card never ships live on the page.
+
+                    <article class="document-card">
+                        <span class="document-type">Microsoft Word</span>
+                        <h3>Document Title Goes Here</h3>
+                        <p class="document-description">
+                            Brief description of the document and the
+                            accessibility work performed.
+                        </p>
+                        <ul class="remediation-list">
+                            <li>Accessibility improvement</li>
+                            <li>Accessibility improvement</li>
+                            <li>Accessibility improvement</li>
+                        </ul>
+                        <div class="document-links">
+                            <a class="document-link" href="documents/word/original-document.docx" download>
+                                Original Document
+                                <span class="visually-hidden">(Word file, downloads)</span>
+                            </a>
+                            <a class="document-link primary" href="documents/word/remediated-document.docx" download>
+                                Remediated Document
+                                <span class="visually-hidden">(Word file, downloads)</span>
+                            </a>
+                        </div>
+                    </article>
+                -->
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PDF DOCUMENTS
+        ========================== -->
+
+        <section id="pdf-documents">
+
+            <div class="section-heading">
+
+                <h2>PDF Remediation</h2>
+
+                <p class="section-description">
+                    PDF accessibility remediation demonstrating techniques
+                    such as tagging, reading order, alternative text, document
+                    structure, language settings, metadata, and accessibility
+                    validation.
+                </p>
+
+            </div>
+
+
+            <div class="document-grid">
+
+                <!--
+                    TEMPLATE — duplicate this comment block into a live
+                    <article class="document-card"> for each PDF you add.
+                    Kept as a comment so an unfilled placeholder card never
+                    ships live on the page.
+
+                    <article class="document-card">
+                        <span class="document-type">PDF</span>
+                        <h3>PDF Document Title Goes Here</h3>
+                        <p class="document-description">
+                            Brief description of the PDF and the
+                            accessibility remediation performed.
+                        </p>
+                        <ul class="remediation-list">
+                            <li>PDF tagging</li>
+                            <li>Reading order</li>
+                            <li>Alternative text</li>
+                            <li>Document properties</li>
+                        </ul>
+                        <div class="document-links">
+                            <a class="document-link" href="documents/pdf/original-document.pdf" target="_blank" rel="noopener">
+                                Original PDF
+                                <span class="visually-hidden">(opens in a new tab)</span>
+                            </a>
+                            <a class="document-link primary" href="documents/pdf/remediated-document.pdf" target="_blank" rel="noopener">
+                                Remediated PDF
+                                <span class="visually-hidden">(opens in a new tab)</span>
+                            </a>
+                        </div>
+                    </article>
+                -->
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             YOUTUBE / VIDEO
+        ========================== -->
+
+        <section id="videos">
+
+            <div class="section-heading">
+
+                <h2>Remediation Walkthroughs</h2>
+
+                <p class="section-description">
+                    Video demonstrations showing how I approach document
+                    accessibility remediation and the techniques I use to
+                    identify and address accessibility barriers.
+                </p>
+
+            </div>
+
+
+            <div class="video-card">
+
+                <h3>
+                    Document Remediation Walkthrough
+                </h3>
+
+                <p>
+                    Watch the remediation process from the original document
+                    through the completed accessible version.
+                </p>
+
+                <div class="video-wrapper">
+
+                    <!--
+                        Replace the placeholder below with your YouTube iframe.
+                        Give each video a distinct, descriptive title
+                        attribute — not a generic one — since that title is
+                        what screen reader users hear for the embedded frame.
+
+                        Example:
+
+                        <iframe
+                            src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+                            title="General Chemistry syllabus: Word accessibility remediation walkthrough"
+                            allow="accelerometer; autoplay; clipboard-write;
+                                   encrypted-media; gyroscope; picture-in-picture;
+                                   web-share"
+                            allowfullscreen>
+                        </iframe>
+                    -->
+
+                    <div class="video-placeholder">
+                        <p>
+                            YouTube remediation walkthrough will appear here.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ACCESSIBILITY APPROACH
+        ========================== -->
+
+        <section id="approach">
+
+            <div class="section-heading">
+
+                <h2>Accessibility Approach</h2>
+
+                <p class="section-description">
+                    My remediation work focuses on creating documents that
+                    are more usable for people who interact with content
+                    through different technologies and access methods.
+                </p>
+
+            </div>
+
+            <div class="about-card">
+
+                <ul class="remediation-list">
+
+                    <li>
+                        Semantic document structure and heading hierarchy
+                    </li>
+
+                    <li>
+                        Alternative text for meaningful images and graphics
+                    </li>
+
+                    <li>
+                        Accessible links and descriptive link text
+                    </li>
+
+                    <li>
+                        Properly structured lists and tables
+                    </li>
+
+                    <li>
+                        Reading order and logical content sequence
+                    </li>
+
+                    <li>
+                        Color contrast and visual accessibility
+                    </li>
+
+                    <li>
+                        Document metadata and language settings
+                    </li>
+
+                    <li>
+                        Keyboard and assistive technology considerations
+                    </li>
+
+                    <li>
+                        Accessibility testing and validation
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <p>
+            © 2026 Tolu Adedoja · Digital Accessibility Portfolio
+        </p>
+
+    </footer>
+
+</body>
+</html>
